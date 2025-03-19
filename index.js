@@ -1,4 +1,4 @@
-//npm i express body-parser
+//npm i express body-parser ejs
 const port = 7777;
 const express = require('express');
 const app = express();
@@ -8,8 +8,13 @@ const bodyParser = require('body-parser');
 const path = require("path");
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, "./views"));
 
-
+app.get('/', (req, res) => {
+    // res.sendFile(path.join(__dirname, 'index.html'));
+    res.render("index", {});
+})
 
 app.listen(port, () => {
     console.log(`Now listening on port http://localhost:${port}`);
