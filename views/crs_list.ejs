@@ -12,19 +12,27 @@
 </head>
 <body>
 <H1><%= page_title %></H1>
+<a href="/Crs/Add">add course</a>
 <table>
     <tr>
         <th></th>
         <th>שם קורס</th>
         <th></th>
-        <th></th>
     </tr>
     <% for(let crs of courses){ %>
         <tr>
-            <td></td>
+            <td>
+                <a href="/Crs/Edit/<%= crs.id %>">edit</a>
+            </td>
             <td><%= crs.name %></td>
-            <td></td>
-            <td></td>
+            <td>
+                <form action="/Crs/Delete" method="post">
+                    <input type="hidden" name="id" value="<%= crs.id %>">
+                    <button>
+                        מחיקה
+                    </button>
+                </form>
+            </td>
         </tr>
     <% } %>
 </table>
