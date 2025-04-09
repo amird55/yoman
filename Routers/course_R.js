@@ -12,6 +12,7 @@ router.post("/Add", [course_Mid.AddCourse], (req, res) => {
 });
 router.get("/List",[course_Mid.GetAllCourses],(req,res)=>{
     res.render("crs_list",{
+        page_title : "רשימת הקורסים",
         courses : req.courses_data,
     });
 });
