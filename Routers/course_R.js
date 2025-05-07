@@ -13,11 +13,15 @@ router.post("/Add", [course_Mid.AddCourse], (req, res) => {
     res.redirect("/Crs/List");
 });
 router.get("/Edit/:id",[course_Mid.GetOneCourse],(req,res)=>{
-    res.render("crs_add",{
-        data : req.one_course_data,
-    });
+    if(req.GoodOne) {
+        res.render("crs_add", {
+            data: req.one_course_data,
+        });
+    } else{
+        res.redirect("/Crs/List");
+    }
 });
-router.post("/Edit/:id", [course_Mid.AddCourse], (req, res) => {
+router.post("/Edit/:id", [course_Mid.UpdateCourse], (req, res) => {
     res.redirect("/Crs/List");
 });
 router.get("/List",[course_Mid.GetAllCourses],(req,res)=>{

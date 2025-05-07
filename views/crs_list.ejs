@@ -24,7 +24,7 @@
             <td>
                 <a href="/Crs/Edit/<%= crs.id %>">edit</a>
             </td>
-            <td><%- crs.name %></td>
+            <td><%= crs.name %></td>
             <td>
                 <form action="/Crs/Delete" method="post">
                     <input type="hidden" name="id" value="<%= crs.id %>">

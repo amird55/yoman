@@ -12,8 +12,14 @@ async function AddCourse(req,res,next){
     next();
 }
 async function UpdateCourse(req,res,next){
+    let id = parseInt(req.params.id);
+    if(id <= 0){
+        req.GoodOne=false;
+        return next();
+    }
+    req.GoodOne=true;
     let name = addSlashes(req.body.name);// a' or (drop table courses --
-    let Query=`INSERT INTO courses( name) VALUES ('${name}')`;
+    let Query=`UPDATE courses SET name='${name}' WHERE id='${id}'`;
     const promisePool = db_pool.promise();
     let rows=[];
     try {
@@ -40,6 +46,12 @@ async function GetAllCourses(req,res,next){
 }
 async function GetOneCourse(req,res,next){
     let id = parseInt(req.params.id);
+    console.log(id)
+    if((id === NaN) || (id <= 0)){
+        req.GoodOne=false;
+        return next();
+    }
+    req.GoodOne=true;
     let Query=`SELECT * FROM courses  WHERE id='${id}' `;
     const promisePool = db_pool.promise();
     let rows=[];
@@ -76,4 +88,5 @@ module.exports = {
     GetAllCourses,
     GetOneCourse,
     DeleteCourse,
+    UpdateCourse,
 }
