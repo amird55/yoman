@@ -5,7 +5,9 @@ module.exports = router;
 const course_Mid = require("../middleware/course_Mid");
 
 router.get("/Add",(req,res)=>{
-    res.render("crs_add",{});
+    res.render("crs_add",{
+        data:{},
+    });
 });
 router.post("/Add", [course_Mid.AddCourse], (req, res) => {
     res.redirect("/Crs/List");
@@ -15,7 +17,7 @@ router.get("/Edit/:id",[course_Mid.GetOneCourse],(req,res)=>{
         data : req.one_course_data,
     });
 });
-router.post("/Edit", [course_Mid.AddCourse], (req, res) => {
+router.post("/Edit/:id", [course_Mid.AddCourse], (req, res) => {
     res.redirect("/Crs/List");
 });
 router.get("/List",[course_Mid.GetAllCourses],(req,res)=>{
