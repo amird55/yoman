@@ -40,11 +40,3 @@ CREATE TABLE IF NOT EXISTS `students_to_teachers` (
 );
 
 
-ALTER TABLE `users` ADD CONSTRAINT `users_fk5` FOREIGN KEY (`type_id`) REFERENCES `user_types`(`id`);
-
-ALTER TABLE `study_data` ADD CONSTRAINT `study_data_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
-
-ALTER TABLE `study_data` ADD CONSTRAINT `study_data_fk3` FOREIGN KEY (`course`) REFERENCES `courses`(`id`);
-ALTER TABLE `students_to_teachers` ADD CONSTRAINT `students_to_teachers_fk0` FOREIGN KEY (`student_id`) REFERENCES `users`(`id`);
-
-ALTER TABLE `students_to_teachers` ADD CONSTRAINT `students_to_teachers_fk1` FOREIGN KEY (`teacher_id`) REFERENCES `users`(`id`);
