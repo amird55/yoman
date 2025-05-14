@@ -20,6 +20,8 @@ global.stripSlashes  = require('slashes').stripSlashes;
 
 const crs_R = require('./Routers/course_R');
 app.use('/Crs',crs_R);
+const usr_R = require('./Routers/users_R');
+app.use('/U',usr_R);
 
 app.get('/', (req, res) => {
     res.render("index", {});
