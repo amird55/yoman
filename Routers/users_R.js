@@ -12,6 +12,7 @@ router.get("/Add",(req,res)=>{
 router.post("/Add", [user_Mid.AddUser], (req, res) => {
     res.redirect("/U/List");
 });
+
 router.get("/Edit/:id",[user_Mid.GetOneUser],(req,res)=>{
     if(req.GoodOne) {
         res.render("user_add", {

@@ -1,5 +1,5 @@
 exports.HOST        ="localhost";
 exports.USER        ="root";
 exports.PASSWORD    ="";
-exports.DATABASE    ="kinneret_yoman";
+exports.DATABASE    ="yoman";
 

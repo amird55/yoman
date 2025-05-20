@@ -13,6 +13,8 @@ async function CheckLogin(uname,passwd){
 
     return (rows.length > 0);
 }
+
+
 async function AddUser(req,res,next){
     let name    = (req.body.name   !== undefined) ? addSlashes(req.body.name      ) : "";
     let uname   = (req.body.uname  !== undefined) ? addSlashes(req.body.uname     ) : "";
@@ -128,4 +130,5 @@ module.exports = {
     GetOneUser,
     DeleteUser,
     UpdateUser,
+    CheckLogin,
 }
