@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+global.jwt = require('jsonwebtoken');
 
 let db_M = require('./database');
 global.db_pool = db_M.pool;
