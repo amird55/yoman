@@ -1,4 +1,4 @@
-//npm i express body-parser ejs mysql2 slashes@2.0.0
+//npm i express body-parser ejs mysql2 slashes@2.0.0 md5
 const port = 7777;
 const express = require('express');
 const app = express();
@@ -22,6 +22,8 @@ const crs_R = require('./Routers/course_R');
 app.use('/Crs',crs_R);
 const usr_R = require('./Routers/users_R');
 app.use('/U',usr_R);
+const auth_R = require('./Routers/auth_R');
+app.use('/',auth_R);
 
 app.get('/', (req, res) => {
     res.render("index", {});
