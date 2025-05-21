@@ -17,13 +17,16 @@ app.set('views', path.join(__dirname, "./views"));
 global.addSlashes    = require('slashes').addSlashes;
 global.stripSlashes  = require('slashes').stripSlashes;
 
+global.was_logged = false;
+const user_Mid = require("./middleware/user_Mid");
 
 const crs_R = require('./Routers/course_R');
-app.use('/Crs',crs_R);
+app.use('/Crs',[user_Mid.isLogged],crs_R);
 const usr_R = require('./Routers/users_R');
 app.use('/U',usr_R);
 const auth_R = require('./Routers/auth_R');
 app.use('/',auth_R);
+
 
 app.get('/', (req, res) => {
     res.render("index", {});

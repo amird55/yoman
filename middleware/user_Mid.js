@@ -1,4 +1,11 @@
 var md5 = require('md5');
+
+async function isLogged(req, res,next){
+    if(!was_logged)
+        res.redirect("/login");
+
+    next();
+}
 async function CheckLogin(req, res,next) {
     let uname   = (req.body.uname  !== undefined) ? addSlashes(req.body.uname     ) : "";
     let passwd  = (req.body.passwd !== undefined) ?            req.body.passwd      : "";
@@ -14,6 +21,7 @@ async function CheckLogin(req, res,next) {
     }
 
     req.validUser = (rows.length > 0);
+    was_logged=req.validUser;
 
     next();
 }
@@ -133,4 +141,5 @@ module.exports = {
     DeleteUser,
     UpdateUser,
     CheckLogin,
+    isLogged,
 }
