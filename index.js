@@ -27,7 +27,7 @@ const user_Mid = require("./middleware/user_Mid");
 const crs_R = require('./Routers/course_R');
 app.use('/Crs',[user_Mid.isLogged],crs_R);
 const usr_R = require('./Routers/users_R');
-app.use('/U',usr_R);
+app.use('/U',[user_Mid.isLogged],usr_R);
 const auth_R = require('./Routers/auth_R');
 app.use('/',auth_R);
 
