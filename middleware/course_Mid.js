@@ -31,7 +31,20 @@ async function UpdateCourse(req,res,next){
     next();
 }
 async function GetAllCourses(req,res,next){
+    let filter = (req.query.filter !== undefined) ? req.query.filter : "";
     let Query="SELECT * FROM courses";
+    let wh="";
+    if(filter !== ""){
+        wh += (wh === "")?" WHERE " : " AND ";
+        wh += ` ( name LIKE '%${filter}%' )`;
+    }
+    if(req.user_id !== undefined){
+        wh += (wh === "")?" WHERE " : " AND ";
+        wh += ` ( id IN (SELECT crs_id FROM crs2user WHERE user_id=${req.user_id}) )`;
+    }
+    Query += wh;
+    Query+= " LIMIT 0,100 ";
+
     const promisePool = db_pool.promise();
     let rows=[];
     req.courses_data=[];
