@@ -44,9 +44,15 @@
         <td colspan="100" class="centered">
             <br/>
             <form action="" method="get">
+                <% if(page > 0) { %>
             <button name="p" value="<%= page-1 %>">הקודם</button>
+                    <% } %>
             עמוד <%= page+1 %>
+                    מתוך
+                    <%= total_pages+1 %>
+            <% if(page < total_pages) { %>
             <button name="p" value="<%= page+1 %>">הבא</button>
+            <% } %>
             </form>
         </td>
     </tr>

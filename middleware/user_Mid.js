@@ -116,10 +116,21 @@ async function GetAllUsers(req,res,next){
     }
     req.page = page;
 
-    let Query="SELECT * FROM users";
-    Query += ` LIMIT ${page*rowPerPage},${rowPerPage} `;
-    const promisePool = db_pool.promise();
     let rows=[];
+    //--- count pages---
+    let Query = "SELECT COUNT(id) AS cnt FROM users";
+    const promisePool = db_pool.promise();
+    let total_rows=0;
+    try {
+        [rows] = await promisePool.query(Query);
+        total_rows=rows[0].cnt;
+    } catch (err) {
+        console.log(err);
+    }
+    req.total_pages = Math.floor(total_rows/rowPerPage);
+    //--- get current page ---
+    Query="SELECT * FROM users";
+    Query += ` LIMIT ${page*rowPerPage},${rowPerPage} `;
     req.users_data=[];
     try {
         [rows] = await promisePool.query(Query);

@@ -26,9 +26,10 @@ router.post("/Edit/:id", [user_Mid.UpdateUser], (req, res) => {
 });
 router.get("/List",[user_Mid.GetAllUsers],(req,res)=>{
     res.render("user_list",{
-        page_title : "רשימת משתמשים",
-        users : req.users_data,
-        page  : req.page,
+        page_title  : "רשימת משתמשים",
+        users       : req.users_data,
+        page        : req.page,
+        total_pages : req.total_pages,
     });
 });
 router.post("/Delete",[user_Mid.DeleteUser],(req,res)=>{
