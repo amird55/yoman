@@ -28,6 +28,7 @@ router.get("/List",[user_Mid.GetAllUsers],(req,res)=>{
     res.render("user_list",{
         page_title : "רשימת משתמשים",
         users : req.users_data,
+        page  : req.page,
     });
 });
 router.post("/Delete",[user_Mid.DeleteUser],(req,res)=>{

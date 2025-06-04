@@ -8,6 +8,7 @@
     <title><%= page_title %></title>
     <style>
         td,th{border: 1px solid black;}
+        .centered{text-align: center;}
     </style>
 </head>
 <body>
@@ -39,6 +40,16 @@
             </td>
         </tr>
     <% } %>
+    <tr>
+        <td colspan="100" class="centered">
+            <br/>
+            <form action="" method="get">
+            <button name="p" value="<%= page-1 %>">הקודם</button>
+            עמוד <%= page+1 %>
+            <button name="p" value="<%= page+1 %>">הבא</button>
+            </form>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

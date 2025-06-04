@@ -5,13 +5,13 @@ async function isLogged(req, res,next){
     let user_id=-1;
     if (jwtToken !== "") {
         jwt.verify(jwtToken, 'myPrivateKey', async (err, decodedToken) => {
-            console.log("decodedToken=",decodedToken);
+            // console.log("decodedToken=",decodedToken);
             if (err) {
                 console.log("err=",err);
             } else {
                 // let val = `${rows[0].id},${rows[0].name}`;
                 let data = decodedToken.data;
-                console.log("data=",data);
+                // console.log("data=",data);
                 user_id = data.split(",")[0];
                 req.user_id=user_id;
             }
@@ -109,7 +109,15 @@ async function UpdateUser(req,res,next){
     next();
 }
 async function GetAllUsers(req,res,next){
+    let page=0;
+    let rowPerPage=2;
+    if(req.query.p !== undefined){
+        page=parseInt(req.query.p);
+    }
+    req.page = page;
+
     let Query="SELECT * FROM users";
+    Query += ` LIMIT ${page*rowPerPage},${rowPerPage} `;
     const promisePool = db_pool.promise();
     let rows=[];
     req.users_data=[];
