@@ -38,11 +38,12 @@ async function GetAllCourses(req,res,next){
         wh += (wh === "")?" WHERE " : " AND ";
         wh += ` ( name LIKE '%${filter}%' )`;
     }
-    if(req.user_id !== undefined){
-        wh += (wh === "")?" WHERE " : " AND ";
-        wh += ` ( id IN (SELECT crs_id FROM crs2user WHERE user_id=${req.user_id}) )`;
-    }
+    // if(req.user_id !== undefined){
+    //     wh += (wh === "")?" WHERE " : " AND ";
+    //     wh += ` ( id IN (SELECT crs_id FROM crs2user WHERE user_id=${req.user_id}) )`;
+    // }
     Query += wh;
+    Query += " ORDER BY name ASC ";
     Query+= " LIMIT 0,100 ";
 
     const promisePool = db_pool.promise();
@@ -51,6 +52,23 @@ async function GetAllCourses(req,res,next){
     try {
         [rows] = await promisePool.query(Query);
         req.courses_data=rows;
+    } catch (err) {
+        console.log(err);
+    }
+
+    next();
+}
+async function GetCoursesNames(req,res,next){
+    let Query="SELECT * FROM courses";
+
+    const promisePool = db_pool.promise();
+    let rows=[];
+    req.courses_names=[];
+    try {
+        [rows] = await promisePool.query(Query);
+        for(let row of rows) {
+            req.courses_names[row.id] = row.name;
+        }
     } catch (err) {
         console.log(err);
     }
@@ -99,6 +117,7 @@ async function DeleteCourse(req,res,next){
 module.exports = {
     AddCourse,
     GetAllCourses,
+    GetCoursesNames,
     GetOneCourse,
     DeleteCourse,
     UpdateCourse,

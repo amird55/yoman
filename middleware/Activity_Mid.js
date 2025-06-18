@@ -23,7 +23,33 @@ async function AddNewActivity(req,res,next){
     }
     next();
 }
+2025/06/18
 
+18-06-2025
+async function GetAllActivities(req,res,next){
+    let Query="SELECT *,DATE_FORMAT(study_date,'%d-%m-%Y') AS nice_date FROM study_data";
+    // let wh="";
+    // if(filter !== ""){
+    //     wh += (wh === "")?" WHERE " : " AND ";
+    //     wh += ` ( name LIKE '%${filter}%' )`;
+    // }
+    // Query += wh;
+    Query += " ORDER BY study_date DESC, start_time DESC ";
+    // Query+= " LIMIT 0,100 ";
+
+    const promisePool = db_pool.promise();
+    let rows=[];
+    req.activity_data=[];
+    try {
+        [rows] = await promisePool.query(Query);
+        req.activity_data=rows;
+    } catch (err) {
+        console.log(err);
+    }
+
+    next();
+}
 module.exports = {
     AddNewActivity,
+    GetAllActivities,
 }
