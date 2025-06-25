@@ -14,9 +14,11 @@ router.get('/plan', [course_Mid.GetAllCourses], (req, res) => {
 router.post('/plan', [Activity_Mid.AddNewActivity], (req, res) => {
     res.redirect("./plan");
 });
-router.get("/List",[Activity_Mid.GetAllActivities,course_Mid.GetCoursesNames],(req,res)=>{
+router.get("/List",[Activity_Mid.GetAllActivities,course_Mid.GetCoursesNames,course_Mid.GetAllCourses],(req,res)=>{
     res.render("activity_List",{
-        courses_names : req.courses_names,
-        activity_data:req.activity_data,
+        courses         : req.courses_data,
+        courses_names   : req.courses_names,
+        activity_data   : req.activity_data,
+        filter_params   : req.filter_params,
     });
 });
